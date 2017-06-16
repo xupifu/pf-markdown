@@ -1,0 +1,10 @@
+#!/bin/sh
+
+JS_DELAY=2000
+
+bin_dir=$(cd `dirname $0`; pwd)
+
+MK_PNG=$bin_dir/wkhtmltox/bin/wkhtmltoimage
+
+$MK_PNG --javascript-delay $JS_DELAY $@
+

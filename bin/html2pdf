@@ -1,0 +1,8 @@
+#!/bin/sh
+
+bin_dir=$(cd `dirname $0`; pwd)
+
+MK_PDF=$bin_dir/wkhtmltox/bin/wkhtmltopdf
+
+$MK_PDF --footer-center '[page]' --margin-top 1cm --margin-bottom 1cm --footer-spacing 1 --footer-font-size 9 $@
+

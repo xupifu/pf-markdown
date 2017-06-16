@@ -1,0 +1,34 @@
+#!/bin/sh
+
+bin_dir=$(cd `dirname $0`; pwd)
+
+MK_HTML=$bin_dir/markdown-styles/bin/generate-md
+
+para_list=$@
+
+$MK_HTML $@
+
+if [ $? -eq 0 ]; then
+	if [ $# -lt 2 ]; then
+		exit
+	fi
+
+	output="./output"
+	break_flag=0
+	for var in $para_list; do
+		if [ $break_flag -eq 1 ]; then
+			output=$var
+			break
+		fi
+
+		if [ $var == "--output" ]; then
+			break_flag=1
+		fi 
+	done
+	for html in `ls $output/*.html`; do
+		html_new=$html.new
+		sed s/'a href'/'a target="_blank" href'/ $html > $html_new
+		mv $html_new $html
+	done
+fi
+
